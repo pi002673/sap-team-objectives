@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Objetivos & Métricas | SAP Technology | Inetum</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --purple:#6B1F6B;--pink:#E91E8C;--blue:#00d4ff;--green:#00c853;
+  --bg-dark:#0f1923;--bg-darker:#0a1628;--bg-darkest:#060e1a;
+  --orange:#ff9800;--amber:#ffc107;--red:#e53935;--blue-mat:#2196f3;
+  --teal:#00bfa5;--indigo:#5c6bc0;
+  --glass:rgba(255,255,255,0.05);--glass-border:rgba(255,255,255,0.10);
+  --text:#f0f0f0;--text-muted:#8a9bb8;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',sans-serif;background:var(--bg-dark);color:var(--text);line-height:1.7;overflow-x:hidden}
+a{color:var(--blue);text-decoration:none;transition:color .3s}
+a:hover{color:var(--pink)}
+h1,h2,h3,h4{font-weight:700;line-height:1.2}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+section{padding:90px 0}
+.section-title{text-align:center;margin-bottom:56px}
+.section-title h2{font-size:2.2rem;margin-bottom:12px;background:linear-gradient(135deg,var(--pink),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.section-title p{color:var(--text-muted);font-size:1rem;max-width:680px;margin:0 auto}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .7s ease,transform .7s ease}
+.reveal.active{opacity:1;transform:translateY(0)}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:14px 0;transition:all .4s ease}
+.navbar.scrolled{background:rgba(10,22,40,0.96);backdrop-filter:blur(20px);padding:10px 0;box-shadow:0 4px 30px rgba(0,0,0,.4)}
+.navbar .container{display:flex;align-items:center;justify-content:space-between}
+.navbar-logo{height:30px;filter:brightness(0) invert(1)}
+.navbar-links{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.navbar-links a{color:var(--text-muted);font-size:.78rem;font-weight:500;transition:color .3s;white-space:nowrap}
+.navbar-links a:hover{color:#fff}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:24px;height:2px;background:#fff;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+/* HERO */
+.hero{min-height:92vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0a1a3a 0%,var(--purple) 30%,#1a0a3a 55%,var(--bg-darkest) 80%,#0a1628 100%);background-size:400% 400%;animation:heroGrad 14s ease infinite}
+@keyframes heroGrad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.hero-overlay{position:absolute;inset:0;background:rgba(6,14,26,0.45)}
+.hero-content{position:relative;z-index:2;max-width:780px}
+.hero-content h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;margin-bottom:10px;letter-spacing:-1px}
+.hero-content .hero-unit{font-size:1rem;color:rgba(255,255,255,.6);margin-bottom:14px}
+.hero-content .hero-sub{font-size:clamp(.88rem,2vw,1.15rem);font-weight:300;color:rgba(255,255,255,.75);margin-bottom:36px;line-height:1.8}
+.hero-cta{display:inline-flex;align-items:center;gap:8px;padding:13px 34px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;color:#fff;font-size:.95rem;font-weight:600;border-radius:50px;cursor:pointer;transition:transform .3s,box-shadow .3s;text-decoration:none}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(233,30,140,.4);color:#fff}
+.particles{position:absolute;inset:0;z-index:1;overflow:hidden}
+.particle{position:absolute;width:4px;height:4px;background:rgba(255,255,255,.2);border-radius:50%;animation:floatP linear infinite}
+@keyframes floatP{0%{transform:translateY(100vh) rotate(0deg);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-10vh) rotate(720deg);opacity:0}}
+.badge-label{display:inline-block;background:rgba(233,30,140,0.15);border:1px solid var(--pink);color:var(--pink);padding:4px 16px;border-radius:20px;font-size:.68rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:22px}
+
+/* OVERVIEW CARDS */
+.overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:50px}
+.ov-card{text-align:center;padding:28px 16px;background:var(--glass);border:1px solid var(--glass-border);border-radius:14px;transition:transform .3s,border-color .3s}
+.ov-card:hover{transform:translateY(-3px);border-color:rgba(233,30,140,.25)}
+.ov-number{font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,var(--pink),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ov-label{font-size:.78rem;color:var(--text-muted);margin-top:4px}
+
+/* OBJECTIVE CARDS */
+.obj-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:18px;padding:0;margin-bottom:32px;overflow:hidden;transition:transform .3s,box-shadow .3s,border-color .3s}
+.obj-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.3);border-color:rgba(233,30,140,.2)}
+.obj-header{display:flex;align-items:center;gap:16px;padding:28px 32px 20px;cursor:pointer;user-select:none}
+.obj-number{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.2rem;color:#fff;flex-shrink:0}
+.obj-header-text{flex:1}
+.obj-header-text h3{font-size:1.08rem;margin-bottom:2px}
+.obj-header-text .obj-category{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px}
+.obj-toggle{width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:rgba(255,255,255,.06);transition:transform .3s;flex-shrink:0;color:var(--text-muted);font-size:.8rem}
+.obj-card.open .obj-toggle{transform:rotate(180deg)}
+
+.obj-body{max-height:0;overflow:hidden;transition:max-height .5s ease}
+.obj-body-inner{padding:0 32px 32px}
+
+/* Scale Grid */
+.scale-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px}
+.scale-item{border-radius:12px;padding:18px 16px;position:relative;overflow:hidden}
+.scale-item::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.scale-item.s1{background:rgba(229,57,53,.06);border:1px solid rgba(229,57,53,.15)}
+.scale-item.s1::before{background:var(--red)}
+.scale-item.s2{background:rgba(255,152,0,.06);border:1px solid rgba(255,152,0,.15)}
+.scale-item.s2::before{background:var(--orange)}
+.scale-item.s3{background:rgba(0,200,83,.06);border:1px solid rgba(0,200,83,.15)}
+.scale-item.s3::before{background:var(--green)}
+.scale-item.s4{background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.15)}
+.scale-item.s4::before{background:var(--blue)}
+.scale-level{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.scale-num{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.75rem;color:#fff}
+.s1 .scale-num{background:var(--red)}
+.s2 .scale-num{background:var(--orange)}
+.s3 .scale-num{background:var(--green)}
+.s4 .scale-num{background:var(--blue)}
+.scale-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.s1 .scale-label{color:var(--red)}
+.s2 .scale-label{color:var(--orange)}
+.s3 .scale-label{color:var(--green)}
+.s4 .scale-label{color:var(--blue)}
+.scale-desc{font-size:.8rem;color:var(--text-muted);line-height:1.6}
+
+/* Category colors */
+.cat-project{color:var(--blue-mat)}
+.cat-ai{color:var(--pink)}
+.cat-admin{color:var(--teal)}
+.cat-cert{color:var(--orange)}
+.cat-social{color:var(--green)}
+.cat-business{color:var(--indigo)}
+.bg-project{background:linear-gradient(135deg,#1565c0,#1976d2)}
+.bg-ai{background:linear-gradient(135deg,var(--pink),var(--purple))}
+.bg-admin{background:linear-gradient(135deg,#00897b,var(--teal))}
+.bg-cert{background:linear-gradient(135deg,#ef6c00,var(--orange))}
+.bg-social{background:linear-gradient(135deg,#2e7d32,var(--green))}
+.bg-business{background:linear-gradient(135deg,#3949ab,var(--indigo))}
+
+/* CONTEXT SECTION */
+.context-box{max-width:800px;margin:0 auto;padding:36px;background:var(--glass);border:1px solid var(--glass-border);border-radius:18px}
+.context-box p{font-size:.9rem;color:var(--text-muted);line-height:1.85;margin-bottom:14px}
+.context-box p:last-child{margin-bottom:0}
+.context-box strong{color:var(--text)}
+
+/* SUMMARY TABLE */
+.summary-table{width:100%;border-collapse:collapse;font-size:.84rem}
+.summary-table th{background:rgba(233,30,140,.06);color:var(--pink);padding:13px 16px;text-align:left;font-weight:600;font-size:.74rem;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--glass-border)}
+.summary-table td{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text-muted)}
+.summary-table tr:hover td{background:rgba(255,255,255,.02)}
+.summary-table .cat-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px}
+
+/* FOOTER */
+.footer{padding:50px 0 28px;background:rgba(0,0,0,.3);border-top:1px solid var(--glass-border)}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-brand{display:flex;align-items:center;gap:12px}
+.footer-brand img{height:24px;filter:brightness(0) invert(1)}
+.footer-brand span{font-size:.82rem;color:var(--text-muted)}
+.footer-copy{font-size:.73rem;color:var(--text-muted)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .navbar-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(10,22,40,.98);padding:20px;gap:12px;border-radius:0 0 16px 16px}
+  .navbar-links.open{display:flex}
+  .hamburger{display:flex}
+  .scale-grid{grid-template-columns:1fr 1fr}
+  .footer-inner{flex-direction:column;text-align:center}
+}
+@media(max-width:600px){
+  section{padding:60px 0}
+  .section-title h2{font-size:1.7rem}
+  .scale-grid{grid-template-columns:1fr}
+  .obj-header{padding:20px 20px 16px}
+  .obj-body-inner{padding:0 20px 24px}
+  .overview-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media print{
+  .navbar,.particles,.hero-bg,.hero-overlay{display:none}
+  body{background:#fff;color:#222}
+  section{padding:24px 0;page-break-inside:avoid}
+  .obj-card{border:1px solid #ddd;background:#f9f9f9;break-inside:avoid}
+  .obj-body{max-height:none !important}
+  .section-title h2{-webkit-text-fill-color:#333;color:#333}
+  .footer{display:none}
+  .scale-item{border:1px solid #ccc}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <img src="https://www.inetum.com/content/dam/inetum/navigation/inetum-logo.svg" alt="Inetum" class="navbar-logo">
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="navbar-links" id="navLinks">
+      <a href="#contexto">Contexto</a>
+      <a href="#resumo">Resumo</a>
+      <a href="#objetivos">Objetivos</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="particles" id="particles"></div>
+  <div class="hero-content">
+    <div class="badge-label">SAP Technology &mdash; Inetum Portugal</div>
+    <h1>Objetivos & Métricas</h1>
+    <p class="hero-unit">Equipa SAP &nbsp;|&nbsp; Ciclo Anual de Avaliação</p>
+    <p class="hero-sub">Orientar o desenvolvimento profissional, garantir alinhamento com as necessidades da equipa e promover uma cultura de melhoria contínua.</p>
+    <a href="#contexto" class="hero-cta">
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M12 5v14m0 0l-6-6m6 6l6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Ver Objetivos
+    </a>
+  </div>
+</section>
+
+<!-- CONTEXTO -->
+<section id="contexto">
+  <div class="container">
+    <div class="section-title reveal">
+      <h2>Enquadramento</h2>
+      <p>O propósito, o processo e a flexibilidade dos objetivos anuais.</p>
+    </div>
+    <div class="context-box reveal">
+      <p>A definição anual de objetivos tem como propósito <strong>orientar o desenvolvimento profissional</strong> de cada colaborador, garantir alinhamento com as necessidades da equipa e da Inetum, e promover uma cultura de melhoria contínua. Estes objetivos refletem áreas essenciais de atuação &mdash; desde o desempenho técnico em projetos SAP até ao crescimento individual, participação social e contribuição para o negócio.</p>
+      <p>Os objetivos aqui apresentados foram definidos em conjunto com o respetivo <strong>Team Leader</strong>, assegurando que são claros, relevantes e ajustados ao papel desempenhado pelo colaborador. No entanto, reconhece‑se que a realidade dos projetos e das equipas pode evoluir ao longo do ano. Por isso, estes objetivos podem ser <strong>ajustados, refinados ou complementados</strong> com novos, sempre que tal faça sentido, mediante mútuo acordo entre o colaborador e o Team Leader.</p>
+      <p>Este processo flexível garante que a avaliação anual permanece <strong>justa, atualizada e alinhada</strong> com as prioridades da equipa e da organização, promovendo o desenvolvimento contínuo e o impacto positivo em todas as dimensões do trabalho.</p>
+    </div>
+
+    <!-- Overview -->
+    <div class="overview-grid reveal" style="margin-top:48px">
+      <div class="ov-card">
+        <div class="ov-number">6</div>
+        <div class="ov-label">Objetivos Definidos</div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-number">4</div>
+        <div class="ov-label">Níveis por Escala</div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-number">6</div>
+        <div class="ov-label">Categorias Distintas</div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-number">24</div>
+        <div class="ov-label">Critérios de Avaliação</div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-number">1</div>
+        <div class="ov-label">Ciclo Anual</div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-number">&infin;</div>
+        <div class="ov-label">Ajustável a Qualquer Momento</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUMO -->
+<section id="resumo" style="background:linear-gradient(180deg,var(--bg-dark),var(--bg-darker))">
+  <div class="container">
+    <div class="section-title reveal">
+      <h2>Visão Geral dos Objetivos</h2>
+      <p>Os 6 objetivos da equipa SAP num relance, com a respetiva categoria e foco.</p>
+    </div>
+    <div class="reveal" style="overflow-x:auto;background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;padding:0">
+      <table class="summary-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Objetivo</th>
+            <th>Categoria</th>
+            <th>Foco</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1</strong></td>
+            <td>Bom desempenho em todos os projetos</td>
+            <td><span class="cat-dot" style="background:var(--blue-mat)"></span>Projeto</td>
+            <td>Qualidade, prazos, autonomia</td>
+          </tr>
+          <tr>
+            <td><strong>2</strong></td>
+            <td>Adoção eficaz de GenAI no trabalho diário</td>
+            <td><span class="cat-dot" style="background:var(--pink)"></span>Inovação / AI</td>
+            <td>Produtividade, responsabilidade, partilha</td>
+          </tr>
+          <tr>
+            <td><strong>3</strong></td>
+            <td>CV atualizado e completo na plataforma GCOMP</td>
+            <td><span class="cat-dot" style="background:var(--teal)"></span>Administrativo</td>
+            <td>Proatividade, valor comercial</td>
+          </tr>
+          <tr>
+            <td><strong>4</strong></td>
+            <td>Obter ou manter pelo menos uma certificação SAP</td>
+            <td><span class="cat-dot" style="background:var(--orange)"></span>Certificação</td>
+            <td>Desenvolvimento técnico, compromisso</td>
+          </tr>
+          <tr>
+            <td><strong>5</strong></td>
+            <td>Participar em iniciativas de voluntariado</td>
+            <td><span class="cat-dot" style="background:var(--green)"></span>Social / RSE</td>
+            <td>Impacto social, mobilização</td>
+          </tr>
+          <tr>
+            <td><strong>6</strong></td>
+            <td>Identificar e promover oportunidades de negócio</td>
+            <td><span class="cat-dot" style="background:var(--indigo)"></span>Negócio</td>
+            <td>Proatividade comercial, contribuição</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- OBJETIVOS DETALHADOS -->
+<section id="objetivos">
+  <div class="container">
+    <div class="section-title reveal">
+      <h2>Objetivos & Escalas de Avaliação</h2>
+      <p>Clique em cada objetivo para ver a escala de avaliação detalhada com os 4 níveis.</p>
+    </div>
+
+    <!-- OBJ 1 -->
+    <div class="obj-card open reveal" id="obj1">
+      <div class="obj-header" onclick="toggleObj(this)">
+        <div class="obj-number bg-project">1</div>
+        <div class="obj-header-text">
+          <div class="obj-category cat-project">Projeto</div>
+          <h3>Obter um bom desempenho em todos os projetos por onde passa</h3>
+        </div>
+        <div class="obj-toggle">&#9660;</div>
+      </div>
+      <div class="obj-body" style="max-height:800px">
+        <div class="obj-body-inner">
+          <div class="scale-grid">
+            <div class="scale-item s1">
+              <div class="scale-level"><div class="scale-num">1</div><div class="scale-label">Não atinge</div></div>
+              <div class="scale-desc">Entregas com erros recorrentes, necessidade de retrabalho frequente; falha em cumprir prazos; dependência excessiva; feedback negativo.</div>
+            </div>
+            <div class="scale-item s2">
+              <div class="scale-level"><div class="scale-num">2</div><div class="scale-label">Parcialmente</div></div>
+              <div class="scale-desc">Entregas tecnicamente aceitáveis mas com erros; cumpre parte dos prazos; autonomia moderada; feedback misto.</div>
+            </div>
+            <div class="scale-item s3">
+              <div class="scale-level"><div class="scale-num">3</div><div class="scale-label">Atinge</div></div>
+              <div class="scale-desc">Entregas consistentes e alinhadas com standards SAP; cumpre prazos; autonomia; feedback positivo.</div>
+            </div>
+            <div class="scale-item s4">
+              <div class="scale-level"><div class="scale-num">4</div><div class="scale-label">Excede</div></div>
+              <div class="scale-desc">Entregas de elevada qualidade; antecipação de riscos; autonomia elevada; referência interna.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBJ 2 -->
+    <div class="obj-card reveal" id="obj2">
+      <div class="obj-header" onclick="toggleObj(this)">
+        <div class="obj-number bg-ai">2</div>
+        <div class="obj-header-text">
+          <div class="obj-category cat-ai">Inovação / AI</div>
+          <h3>Adoção eficaz de GenAI no trabalho diário</h3>
+        </div>
+        <div class="obj-toggle">&#9660;</div>
+      </div>
+      <div class="obj-body">
+        <div class="obj-body-inner">
+          <div class="scale-grid">
+            <div class="scale-item s1">
+              <div class="scale-level"><div class="scale-num">1</div><div class="scale-label">Não atinge</div></div>
+              <div class="scale-desc">Raramente utiliza GenAI ou utiliza de forma inadequada; retrabalho significativo; não demonstra evolução; uso sem validação.</div>
+            </div>
+            <div class="scale-item s2">
+              <div class="scale-level"><div class="scale-num">2</div><div class="scale-label">Parcialmente</div></div>
+              <div class="scale-desc">Utiliza ocasionalmente; impacto limitado; necessidade de ajustes; validação irregular.</div>
+            </div>
+            <div class="scale-item s3">
+              <div class="scale-level"><div class="scale-num">3</div><div class="scale-label">Atinge</div></div>
+              <div class="scale-desc">Utiliza de forma consistente; outputs de boa qualidade; autonomia; uso responsável.</div>
+            </div>
+            <div class="scale-item s4">
+              <div class="scale-level"><div class="scale-num">4</div><div class="scale-label">Excede</div></div>
+              <div class="scale-desc">Utiliza GenAI como ferramenta estratégica; elevada produtividade; partilha boas práticas; inovação.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBJ 3 -->
+    <div class="obj-card reveal" id="obj3">
+      <div class="obj-header" onclick="toggleObj(this)">
+        <div class="obj-number bg-admin">3</div>
+        <div class="obj-header-text">
+          <div class="obj-category cat-admin">Administrativo</div>
+          <h3>Manter o CV atualizado e completo na plataforma GCOMP</h3>
+        </div>
+        <div class="obj-toggle">&#9660;</div>
+      </div>
+      <div class="obj-body">
+        <div class="obj-body-inner">
+          <div class="scale-grid">
+            <div class="scale-item s1">
+              <div class="scale-level"><div class="scale-num">1</div><div class="scale-label">Não atinge</div></div>
+              <div class="scale-desc">CV desatualizado ou incompleto; falta de informação relevante; erros; falta de cumprimento.</div>
+            </div>
+            <div class="scale-item s2">
+              <div class="scale-level"><div class="scale-num">2</div><div class="scale-label">Parcialmente</div></div>
+              <div class="scale-desc">Atualização ocasional; lacunas; segue parcialmente o modelo.</div>
+            </div>
+            <div class="scale-item s3">
+              <div class="scale-level"><div class="scale-num">3</div><div class="scale-label">Atinge</div></div>
+              <div class="scale-desc">CV atualizado sempre que necessário; informação clara e completa; sem lembretes.</div>
+            </div>
+            <div class="scale-item s4">
+              <div class="scale-level"><div class="scale-num">4</div><div class="scale-label">Excede</div></div>
+              <div class="scale-desc">Atualização proativa; elevado valor comercial; referência interna.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBJ 4 -->
+    <div class="obj-card reveal" id="obj4">
+      <div class="obj-header" onclick="toggleObj(this)">
+        <div class="obj-number bg-cert">4</div>
+        <div class="obj-header-text">
+          <div class="obj-category cat-cert">Certificação</div>
+          <h3>Obter (ou manter) pelo menos uma certificação SAP válida</h3>
+        </div>
+        <div class="obj-toggle">&#9660;</div>
+      </div>
+      <div class="obj-body">
+        <div class="obj-body-inner">
+          <div class="scale-grid">
+            <div class="scale-item s1">
+              <div class="scale-level"><div class="scale-num">1</div><div class="scale-label">Não atinge</div></div>
+              <div class="scale-desc">Não obtém certificação; deixa expirar; falta de empenho.</div>
+            </div>
+            <div class="scale-item s2">
+              <div class="scale-level"><div class="scale-num">2</div><div class="scale-label">Parcialmente</div></div>
+              <div class="scale-desc">Inicia mas não conclui; falha no exame; renova com atrasos.</div>
+            </div>
+            <div class="scale-item s3">
+              <div class="scale-level"><div class="scale-num">3</div><div class="scale-label">Atinge</div></div>
+              <div class="scale-desc">Obtém ou mantém certificação dentro dos prazos; alinhada com a função.</div>
+            </div>
+            <div class="scale-item s4">
+              <div class="scale-level"><div class="scale-num">4</div><div class="scale-label">Excede</div></div>
+              <div class="scale-desc">Obtém várias certificações; partilha conhecimento; forte compromisso.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBJ 5 -->
+    <div class="obj-card reveal" id="obj5">
+      <div class="obj-header" onclick="toggleObj(this)">
+        <div class="obj-number bg-social">5</div>
+        <div class="obj-header-text">
+          <div class="obj-category cat-social">Social / RSE</div>
+          <h3>Participar em iniciativas de voluntariado através do programa corporativo</h3>
+        </div>
+        <div class="obj-toggle">&#9660;</div>
+      </div>
+      <div class="obj-body">
+        <div class="obj-body-inner">
+          <div class="scale-grid">
+            <div class="scale-item s1">
+              <div class="scale-level"><div class="scale-num">1</div><div class="scale-label">Não atinge</div></div>
+              <div class="scale-desc">Não participa; não demonstra interesse.</div>
+            </div>
+            <div class="scale-item s2">
+              <div class="scale-level"><div class="scale-num">2</div><div class="scale-label">Parcialmente</div></div>
+              <div class="scale-desc">Interesse sem conclusão; participação limitada.</div>
+            </div>
+            <div class="scale-item s3">
+              <div class="scale-level"><div class="scale-num">3</div><div class="scale-label">Atinge</div></div>
+              <div class="scale-desc">Participa; boa atitude; contribui positivamente.</div>
+            </div>
+            <div class="scale-item s4">
+              <div class="scale-level"><div class="scale-num">4</div><div class="scale-label">Excede</div></div>
+              <div class="scale-desc">Participa em várias ações; mobiliza outros; forte impacto.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBJ 6 -->
+    <div class="obj-card reveal" id="obj6">
+      <div class="obj-header" onclick="toggleObj(this)">
+        <div class="obj-number bg-business">6</div>
+        <div class="obj-header-text">
+          <div class="obj-category cat-business">Negócio</div>
+          <h3>Identificar e promover oportunidades de negócio no cliente</h3>
+        </div>
+        <div class="obj-toggle">&#9660;</div>
+      </div>
+      <div class="obj-body">
+        <div class="obj-body-inner">
+          <div class="scale-grid">
+            <div class="scale-item s1">
+              <div class="scale-level"><div class="scale-num">1</div><div class="scale-label">Não atinge</div></div>
+              <div class="scale-desc">Não identifica oportunidades.</div>
+            </div>
+            <div class="scale-item s2">
+              <div class="scale-level"><div class="scale-num">2</div><div class="scale-label">Parcialmente</div></div>
+              <div class="scale-desc">Identifica mas não formaliza; impacto limitado.</div>
+            </div>
+            <div class="scale-item s3">
+              <div class="scale-level"><div class="scale-num">3</div><div class="scale-label">Atinge</div></div>
+              <div class="scale-desc">Identifica pelo menos uma oportunidade relevante; comunica adequadamente.</div>
+            </div>
+            <div class="scale-item s4">
+              <div class="scale-level"><div class="scale-num">4</div><div class="scale-label">Excede</div></div>
+              <div class="scale-desc">Identifica várias oportunidades; apoia definição; contribui para concretização.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ESCALA VISUAL -->
+<section style="background:linear-gradient(180deg,var(--bg-dark),var(--bg-darker))">
+  <div class="container">
+    <div class="section-title reveal">
+      <h2>Escala de Avaliação</h2>
+      <p>A escala de 4 níveis aplicada transversalmente a todos os objetivos.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:900px;margin:0 auto" class="reveal">
+      <div style="text-align:center;padding:32px 16px;border-radius:16px;background:rgba(229,57,53,.06);border:1px solid rgba(229,57,53,.18)">
+        <div style="width:56px;height:56px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-weight:900;font-size:1.4rem;color:#fff">1</div>
+        <div style="font-weight:700;font-size:.9rem;color:var(--red);margin-bottom:6px">Não Atinge</div>
+        <div style="font-size:.78rem;color:var(--text-muted)">Abaixo das expectativas mínimas. Necessita de ação corretiva imediata.</div>
+      </div>
+      <div style="text-align:center;padding:32px 16px;border-radius:16px;background:rgba(255,152,0,.06);border:1px solid rgba(255,152,0,.18)">
+        <div style="width:56px;height:56px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-weight:900;font-size:1.4rem;color:#fff">2</div>
+        <div style="font-weight:700;font-size:.9rem;color:var(--orange);margin-bottom:6px">Parcialmente</div>
+        <div style="font-size:.78rem;color:var(--text-muted)">Atinge parcialmente. Existem áreas de melhoria identificadas.</div>
+      </div>
+      <div style="text-align:center;padding:32px 16px;border-radius:16px;background:rgba(0,200,83,.06);border:1px solid rgba(0,200,83,.18)">
+        <div style="width:56px;height:56px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-weight:900;font-size:1.4rem;color:#fff">3</div>
+        <div style="font-weight:700;font-size:.9rem;color:var(--green);margin-bottom:6px">Atinge</div>
+        <div style="font-size:.78rem;color:var(--text-muted)">Cumpre totalmente as expectativas. Desempenho sólido e consistente.</div>
+      </div>
+      <div style="text-align:center;padding:32px 16px;border-radius:16px;background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.18)">
+        <div style="width:56px;height:56px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-weight:900;font-size:1.4rem;color:#fff">4</div>
+        <div style="font-weight:700;font-size:.9rem;color:var(--blue);margin-bottom:6px">Excede</div>
+        <div style="font-size:.78rem;color:var(--text-muted)">Supera as expectativas. Referência para a equipa e organização.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="https://www.inetum.com/content/dam/inetum/navigation/inetum-logo.svg" alt="Inetum">
+        <span>SAP Technology &nbsp;|&nbsp; Objetivos & Métricas</span>
+      </div>
+      <div class="footer-copy">&copy; 2026 Inetum Portugal &mdash; Equipa SAP Technology. Documento interno.</div>
+    </div>
+  </div>
+</footer>
+
+<!-- JAVASCRIPT -->
+<script>
+/* Particles */
+(function(){
+  var c=document.getElementById('particles');
+  for(var i=0;i<35;i++){
+    var p=document.createElement('div');
+    p.className='particle';
+    p.style.left=Math.random()*100+'%';
+    p.style.width=p.style.height=(Math.random()*3+2)+'px';
+    p.style.animationDuration=(Math.random()*14+8)+'s';
+    p.style.animationDelay=(Math.random()*10)+'s';
+    p.style.opacity=Math.random()*0.35+0.1;
+    c.appendChild(p);
+  }
+})();
+
+/* Navbar scroll */
+window.addEventListener('scroll',function(){
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60);
+});
+
+/* Mobile menu */
+function toggleMenu(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('navLinks').classList.toggle('open');
+}
+document.querySelectorAll('.navbar-links a').forEach(function(a){
+  a.addEventListener('click',function(){
+    document.getElementById('hamburger').classList.remove('open');
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+/* Accordion toggle */
+function toggleObj(header){
+  var card=header.parentElement;
+  var body=card.querySelector('.obj-body');
+  var isOpen=card.classList.contains('open');
+  /* Close all */
+  document.querySelectorAll('.obj-card').forEach(function(c){
+    c.classList.remove('open');
+    c.querySelector('.obj-body').style.maxHeight=null;
+  });
+  /* Open clicked if was closed */
+  if(!isOpen){
+    card.classList.add('open');
+    body.style.maxHeight=body.scrollHeight+'px';
+  }
+}
+/* Init first open */
+document.querySelectorAll('.obj-card.open').forEach(function(c){
+  var b=c.querySelector('.obj-body');
+  b.style.maxHeight=b.scrollHeight+'px';
+});
+
+/* Reveal on scroll */
+(function(){
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting) e.target.classList.add('active');
+    });
+  },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
+})();
+
+/* Smooth scroll */
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor){
+  anchor.addEventListener('click',function(e){
+    e.preventDefault();
+    var target=document.querySelector(this.getAttribute('href'));
+    if(target){
+      var navH=document.getElementById('navbar').offsetHeight;
+      var y=target.getBoundingClientRect().top+window.pageYOffset-navH;
+      window.scrollTo({top:y,behavior:'smooth'});
+    }
+  });
+});
+</script>
+</body>
+</html>
